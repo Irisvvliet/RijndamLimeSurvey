@@ -75,17 +75,12 @@ These settings are the same for all surveys and are taken from `PDI (simpel).lss
 | Type | LimeSurvey code | Use case |
 |------|----------------|----------|
 | Radio list | `L` | Single choice with answer options as rows; best for items with descriptive text and variable score ranges |
-| Array matrix | `F` | Matrix with sub-question rows and answer option columns; used for bilateral items (R/L) with a shared scale |
 | Equation | `*` | Computed/hidden field; used for scores and averages |
 
 ### Answer options for type L
 - Each answer has `aid`, `qid`, `code` (numeric), `sortorder`, `assessment_value` (= code), `scale_id` (= 0)
 - Display text goes in `<answer_l10ns>` with matching `aid`
-
-### Sub-questions for type F
-- Sub-questions define the rows (e.g. `R` = Rechts, `L` = Links)
-- Answer options define the columns
-- Referenced in equations as `{V5_R.NAOK}` (title of parent + `_` + title of sub-question)
+- Bilateral items (R/L) are implemented as **two separate type L questions**, each with its own title (e.g. `VA_R` for rechts, `VA_L` for links)
 
 ---
 
@@ -94,7 +89,7 @@ These settings are the same for all surveys and are taken from `PDI (simpel).lss
 | Context | Syntax | Example |
 |---------|--------|---------|
 | Type L question | `{TITLE.NAOK}` | `{V1.NAOK}` |
-| Type F sub-question | `{PARENT_SUB.NAOK}` | `{V5_R.NAOK}` |
+| Bilateral item (separate L questions) | `{TITLE_R.NAOK}` / `{TITLE_L.NAOK}` | `{VA_R.NAOK}` / `{VA_L.NAOK}` |
 | Reverse scored item (max=2) | `(2-{Qnnn.NAOK})` | `(2-{Q002.NAOK})` |
 | Average of bilateral | `({VA_R.NAOK}+{VA_L.NAOK})/2` | |
 
@@ -159,7 +154,7 @@ Iterative versions in the same session can be named descriptively (e.g. `SARA Ha
 
 | Item | Type | Scale | Notes |
 |------|------|-------|-------|
-| ... | L / F | 0–n | ... |
+| ... | L | 0–n | ... |
 
 ### Score equation(s)
 
